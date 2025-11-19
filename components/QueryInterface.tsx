@@ -11,15 +11,15 @@ interface QueryInterfaceProps {
 const QueryInterface: React.FC<QueryInterfaceProps> = ({ onQuery, loadingState, hasData }) => {
   const [query, setQuery] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     if (query.trim() && hasData) {
       onQuery(query);
     }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    // Prevent submit while using IME (Input Method Editor) for languages like Thai
+    // Check if IME composition is active (important for Thai, Chinese, Japanese, etc.)
     if (e.nativeEvent.isComposing) {
       return;
     }
@@ -27,9 +27,7 @@ const QueryInterface: React.FC<QueryInterfaceProps> = ({ onQuery, loadingState, 
     // Check if Enter is pressed without Shift
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault(); // Prevent new line
-      if (query.trim() && hasData) {
-        onQuery(query);
-      }
+      handleSubmit();
     }
   };
 
