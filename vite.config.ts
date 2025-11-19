@@ -9,10 +9,9 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
     define: {
-      // Expose API_KEY to the client-side.
-      // Using JSON.stringify insures the value is treated as a string literal.
-      // If env.API_KEY is undefined, it falls back to process.env.API_KEY (useful for Vercel/Docker)
-      'process.env.API_KEY': JSON.stringify(env.API_KEY || process.env.API_KEY)
+      // Expose VITE_API_KEY to the client-side via process.env.
+      // Using JSON.stringify ensures the value is treated as a string literal.
+      'process.env.VITE_API_KEY': JSON.stringify(env.VITE_API_KEY || process.env.VITE_API_KEY)
     }
   };
 });

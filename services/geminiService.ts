@@ -2,8 +2,8 @@ import { GoogleGenAI } from "@google/genai";
 import { CleanedDataRow } from "../types";
 
 // Initialize the Gemini API client
-// Ensure process.env.API_KEY is set in your environment variables
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Ensure process.env.VITE_API_KEY is set in your environment variables
+const ai = new GoogleGenAI({ apiKey: process.env.VITE_API_KEY });
 
 export const generateReport = async (
   data: CleanedDataRow[],
