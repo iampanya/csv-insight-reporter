@@ -19,6 +19,11 @@ const QueryInterface: React.FC<QueryInterfaceProps> = ({ onQuery, loadingState, 
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // Prevent submit while using IME (Input Method Editor) for languages like Thai
+    if (e.nativeEvent.isComposing) {
+      return;
+    }
+
     // Check if Enter is pressed without Shift
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault(); // Prevent new line
