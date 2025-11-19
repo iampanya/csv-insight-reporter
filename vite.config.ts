@@ -12,8 +12,7 @@ export default defineConfig(({ mode }) => {
     define: {
       // Expose API_KEY to the client-side via process.env.
       // Using JSON.stringify ensures the value is treated as a string literal.
-      'process.env.API_KEY': JSON.stringify(env.API_KEY || process.env.API_KEY),
-      'process.env.VITE_API_KEY': JSON.stringify(env.VITE_API_KEY || process.env.VITE_API_KEY)
+      'process.env.API_KEY': JSON.stringify(env.API_KEY || process.env.API_KEY)
     }
   };
 });
