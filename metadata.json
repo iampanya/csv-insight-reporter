@@ -1,0 +1,5 @@
+{
+  "name": "Gemini CSV Insight Reporter",
+  "description": "เว็บแอปพลิเคชันสำหรับอัปโหลดไฟล์ CSV และสอบถามข้อมูลเชิงลึก (Data Insights) ด้วยภาษาธรรมชาติ (Natural Language Querying) ภาษาไทย โดยใช้ Google Gemini API",
+  "requestFramePermissions": []
+}
