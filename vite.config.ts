@@ -5,13 +5,14 @@ export default defineConfig(({ mode }) => {
   // Load env file based on `mode` in the current working directory.
   // Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
   const env = loadEnv(mode, process.cwd(), '');
+  
   return {
     plugins: [react()],
     define: {
-      // Expose API_KEY to the client-side
-      // WARNING: In a production app without a backend, this is visible to users.
-      // Since we are using client-side Gemini calls, this is necessary for this architecture.
-      'process.env.API_KEY': JSON.stringify(env.API_KEY)
+      // Expose API_KEY to the client-side.
+      // Using JSON.stringify insures the value is treated as a string literal.
+      // If env.API_KEY is undefined, it falls back to process.env.API_KEY (useful for Vercel/Docker)
+      'process.env.API_KEY': JSON.stringify(env.API_KEY || process.env.API_KEY)
     }
   };
 });
