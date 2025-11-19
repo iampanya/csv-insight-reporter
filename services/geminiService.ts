@@ -1,15 +1,14 @@
 import { GoogleGenAI } from "@google/genai";
 import { CleanedDataRow } from "../types";
 
-// Initialize the Gemini API client
-// Ensure process.env.VITE_API_KEY is set in your environment variables
-const ai = new GoogleGenAI({ apiKey: process.env.VITE_API_KEY });
-
 export const generateReport = async (
   data: CleanedDataRow[],
   query: string
 ): Promise<string> => {
   try {
+    // Initialize the Gemini API client using process.env.API_KEY as per guidelines
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+
     // Convert data to JSON string
     // Gemini 2.5 Flash accommodates huge context, allowing us to pass the dataset directly.
     const dataString = JSON.stringify(data);
@@ -45,6 +44,12 @@ export const generateReport = async (
     return response.text || "ขออภัย ไม่สามารถวิเคราะห์ข้อมูลได้ในขณะนี้ (Empty Response)";
   } catch (error) {
     console.error("Gemini API Error:", error);
+    
+    // Enhance error message for UI
+    if (error instanceof Error) {
+       return `เกิดข้อผิดพลาด: ${error.message}`;
+    }
+    
     throw new Error("เกิดข้อผิดพลาดในการเชื่อมต่อกับ Gemini API กรุณาตรวจสอบ API Key หรือลองใหม่อีกครั้ง");
   }
 };
